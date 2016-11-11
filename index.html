@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- ng-app: directive calling on Angular app called gemStore-->
+<html ng-app="gemStore">
+  <head>
+	<title>My First AngularJS application</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+  </head>
+  <!-- ng-controller: directive calling the controller named StoreController but using an alias -->
+  <body class="container" ng-controller="StoreController as store">
+    <!-- ng-hide: directive that hides elements if the value of the expression is true-->
+    <div class="product row" ng-hide="store.product.soldOut">
+      <h3>
+        {{store.product.name}}
+        <em class="pull-right">${{store.product.price}}</em>
+      </h3>
+    <!-- ng-show: directive that show elements if the value of the expression is true-->
+      <button ng-show="store.product.canPurchase">Add to Cart</button>
+    </div>
+  </body>
+</html>
+
