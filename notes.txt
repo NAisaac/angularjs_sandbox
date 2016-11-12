@@ -18,4 +18,23 @@ ng-app : attach the application module to the page
 ng-controller : attach the controller function to the page
 ng-show / ng-hide : display or hide a section based on the expression
 ng-repeat : repeat a section for each item in an Array
+ng-src : attach img in Angular expressions since doing so using "src" attribute fails
 
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Filters - 
+
+Filters are used to filter the expression. General syntax is {{ expression | filter:option }}.
+You pipe the value that comes from interpreting the expression into a JS filter function
+
+{{'1388123412323' | date:'MM/dd/yyyy @ h:mma'}} ====> 12/27/2013 @ 12:50AM
+{{'octagon' | uppercase}} ====> OCTAGON
+{{'Johanna' | limitTo:2}} ====> Jo
+<div ng-repeat = "product in store.products" | limitTo:3"> ... </div> ===> only repeat for 3 items
+<div ng-repeat = "product in store.products" | orderBy:'price'"> ... </div> ===> repeat in ascending price order
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+2-way Data Binding -
+
+This means that expressions not only set the property, but are also re-evaluated when a property changes through user action.

@@ -13,7 +13,7 @@
     <div class="product row" ng-repeat="product in store.products">
       <h3>
         {{product.name}}
-        <em class="pull-right">${{product.price}}</em>
+        <em class="pull-right">{{product.price | currency}}</em>
       </h3>
       <!-- ng-hide: directive that hides elements if the value of the expression is true-->
       <p ng-hide="product.soldOut">There are heaps of'em!</p>
