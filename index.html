@@ -9,14 +9,16 @@
   </head>
   <!-- ng-controller: directive calling the controller named StoreController but using an alias -->
   <body class="container" ng-controller="StoreController as store">
-    <!-- ng-hide: directive that hides elements if the value of the expression is true-->
-    <div class="product row" ng-hide="store.product.soldOut">
+    <!-- ng-repeat: repeats this section for each product in products ARRAY-->
+    <div class="product row" ng-repeat="product in store.products">
       <h3>
-        {{store.product.name}}
-        <em class="pull-right">${{store.product.price}}</em>
+        {{product.name}}
+        <em class="pull-right">${{product.price}}</em>
       </h3>
-    <!-- ng-show: directive that show elements if the value of the expression is true-->
-      <button ng-show="store.product.canPurchase">Add to Cart</button>
+      <!-- ng-hide: directive that hides elements if the value of the expression is true-->
+      <p ng-hide="product.soldOut">There are heaps of'em!</p>
+   	 <!-- ng-show: directive that show elements if the value of the expression is true-->
+      <button ng-show="product.canPurchase">Add to Cart</button>
     </div>
   </body>
 </html>

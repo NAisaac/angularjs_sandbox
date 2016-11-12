@@ -1,0 +1,21 @@
+Directives - HTML markers that trigger JS behaviors 
+	e.g. ng-app, ng-controller, ng-show, ng-repeat
+
+Modules - where the application components live 
+	e.g. var app = angular.module(‘gemStone’, []);
+
+Controllers - where we add application behavior
+	e.g. app.controller(‘StoreController’, function(){ … });
+
+Expressions - expressions that get interpreted into values to be displayed on page
+	e.g. {{product.name}}
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+List of Directives - 
+
+ng-app : attach the application module to the page
+ng-controller : attach the controller function to the page
+ng-show / ng-hide : display or hide a section based on the expression
+ng-repeat : repeat a section for each item in an Array
+
