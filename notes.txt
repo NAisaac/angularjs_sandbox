@@ -19,8 +19,12 @@ ng-controller : attach the controller function to the page
 ng-show / ng-hide : display or hide a section based on the expression
 ng-repeat : repeat a section for each item in an Array
 ng-src : attach img in Angular expressions since doing so using "src" attribute fails
+ng-click : changes the value of the tab; use with ng-show to 
+ng-init : use to initialize an expression in the current scope
+ng-class : allows you to dynamically set CSS classes on an HTML element by databinding an expression. {key:value}
+ng-model : binds the input, select, textarea, or form elemnt to a property on the scope
 
--------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------- -----
 -------------------------------------------------------------------------------------
 Filters - 
 
