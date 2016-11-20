@@ -4,7 +4,7 @@ Directives - HTML markers that trigger JS behaviors
 Modules - where the application components live 
 	e.g. var app = angular.module(‘gemStone’, []);
 
-Controllers - where we add application behavior
+Controllers - where we add application behavior that gets triggered by a directive
 	e.g. app.controller(‘StoreController’, function(){ … });
 
 Expressions - expressions that get interpreted into values to be displayed on page
@@ -19,12 +19,16 @@ ng-controller : attach the controller function to the page
 ng-show / ng-hide : display or hide a section based on the expression
 ng-repeat : repeat a section for each item in an Array
 ng-src : attach img in Angular expressions since doing so using "src" attribute fails
-ng-click : changes the value of the tab; use with ng-show to 
+ng-click : allows us to trigger a function in our controller whenever someone clicks the button
+ng-submit : same as ng-click but can be triggered in more ways: clicking the button OR pressing Enter on a text field
 ng-init : use to initialize an expression in the current scope
-ng-class : allows you to dynamically set CSS classes on an HTML element by databinding an expression. {key:value}
-ng-model : binds the input, select, textarea, or form elemnt to a property on the scope
-
--------------------------------------------------------------------------------- -----
+ng-class : used to selectively apply or remove CSS classes from elements
+ng-model : used for inputs and two-way data binding; binds the input, select, textarea, or form elemnt to a property on the scope
+ng-bind : ng-bind and {{}} are interchangeable, so instead of <span ng-bind="name"></span>, we could have just written {{name}}
+ng-cloak : a mechanism to hide sections of the page while AngularJS bootstraps and finishes loading
+ng-disabled : disables the element if the condition is true
+ng-minlength : sets minimum number of characters
+-------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 Filters - 
 
@@ -42,3 +46,73 @@ You pipe the value that comes from interpreting the expression into a JS filter 
 2-way Data Binding -
 
 This means that expressions not only set the property, but are also re-evaluated when a property changes through user action.
+Model affects the View. 
+View affects the Model.
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Process Flow of AngularJS - 
+
+1. The HTML is loaded. This triggers requests for all the scripts that are a part of it
+2. After the entire HTML document has been loaded, AngularJS kicks in and looks for the ng-app directive
+3. When it finds the ng-app directive, it looks for and loads the module that is specified and attaches it to the element
+4. AngularJS then traverses the children DOM elements of the root element with the ng-app and starts looking for directives and bind statements
+5. Each time it hits an ng-controller or an ng-repeat directive, it creates what we call a scope in AngularJS. A scope is the context for that element. The scope dictates what each DOM element has access to in terms of functions, variables, and the like.
+6. AngularJS then adds watchers and listeners on the variables that the HTML accesses, and keeps track of the current value of each of them. When that value changes, AngularJS updates the UI immediately.
+7. Instead of polling or some other mechanism to check if the data has changed, AngularJS optimizes and checks for updates to the UI only on certain events, which can cause a change in the data or the model underneath. Examples of such events include XHR or server calls, page loads, and user interactions like click or type.
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+Using "self" and NOT "this"
+
+A thing about JavaScript is that the "this" keyword inside a function can be overridden by whoever calls the function. Thus, the "this" outside and inside a function can refer to two completely different objects or scopes.
+
+Therefore, it is generally better to assign the "this" reference inside a controller to a proxy variable (e.g. self), and always refer to the instance through this proxy variable to be assured that the instance we are referring to is the correct one.
+
+e.g. 
+
+angular.module('notesApp', []) 
+	.controller('MainCtrl', [function() {
+		var self = this;
+		self.message= 'Hello '; self.changeMessage = function() {
+            self.message = 'Goodbye';
+        };
+	}]);
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+$variable in ng-repeat
+
+Each of the $ prefixed variables we use within the context of the ng-repeat are provided by AngularJS, and refer to the state of the repeater for that particular element. They include:
+• $first, $middle, and $last are Boolean values that tell us whether that particular element is the first, between the first and last, or the last element in the array or object.
+• $index gives us the index or position of the item in the array.
+• $odd and $even tell us if the item is in an index that is odd or even (we could use this for conditional styling of elements, or other conditions we might have in our application).
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+$variable representing the state of the form
+
+• $invalid
+• $valid
+• $pristine
+• $dirty
+• $error
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+$$ Pre-fixed Variable
+
+Do not use any variables that start with $$ in your application. AngularJS uses them to denote private variables that it uses for its own purposes, and does not guarantee their presence or continued working across different versions of AngularJS. If you find yourself reaching out to a $$ variable, stop! You need to rethink your approach.
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+
+Test Runner & Test Framework (Karma & Jasmine)
+
+When working with JS (and AngularJS), we have two separate tools/ libraries for each purpose. 
+
+1. Karma, which is the test runner agnostic to the test framework and uses NodeJS and SocketIO, is solely responsible for finding all the unit tests in our codebase, opening browsers, running the tests in them, and capturing results. It does not care what language or framework we use for writing the tests; it simply runs them.
+2. Jasmine is the testing framework we will use. Jasmine defines the syntax with which we write our tests, the APIs, and the way we write our assertions. It is possible to not use Jasmine, and instead use something like mocha or some other framework to write tests for AngularJS.
+
+
