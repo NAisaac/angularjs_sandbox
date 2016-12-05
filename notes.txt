@@ -4,7 +4,7 @@ Directives - HTML markers that trigger JS behaviors
 Modules - where the application components live 
 	e.g. var app = angular.module(‘gemStone’, []);
 
-Controllers - where we add application behavior that gets triggered by a directive
+Controllers - where we add JS application behavior that gets triggered by a directive
 	e.g. app.controller(‘StoreController’, function(){ … });
 
 Expressions - expressions that get interpreted into values to be displayed on page
@@ -23,8 +23,8 @@ ng-click : allows us to trigger a function in our controller whenever someone cl
 ng-submit : same as ng-click but can be triggered in more ways: clicking the button OR pressing Enter on a text field
 ng-init : use to initialize an expression in the current scope
 ng-class : used to selectively apply or remove CSS classes from elements
-ng-model : used for inputs and two-way data binding; binds the input, select, textarea, or form elemnt to a property on the scope
-ng-bind : ng-bind and {{}} are interchangeable, so instead of <span ng-bind="name"></span>, we could have just written {{name}}
+ng-bind : one-way data binding; interchangeable with {{}}
+ng-model : two-way data binding
 ng-cloak : a mechanism to hide sections of the page while AngularJS bootstraps and finishes loading
 ng-disabled : disables the element if the condition is true
 ng-minlength : sets minimum number of characters
@@ -46,8 +46,7 @@ You pipe the value that comes from interpreting the expression into a JS filter 
 2-way Data Binding -
 
 This means that expressions not only set the property, but are also re-evaluated when a property changes through user action.
-Model affects the View. 
-View affects the Model.
+Model affects the View <--> View affects the Model.
 
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
@@ -67,17 +66,27 @@ Using "self" and NOT "this"
 
 A thing about JavaScript is that the "this" keyword inside a function can be overridden by whoever calls the function. Thus, the "this" outside and inside a function can refer to two completely different objects or scopes.
 
-Therefore, it is generally better to assign the "this" reference inside a controller to a proxy variable (e.g. self), and always refer to the instance through this proxy variable to be assured that the instance we are referring to is the correct one.
+Therefore, it is generally better to assign the "this" reference inside a controller to a proxy variable (e.g. self), and always refer to the instance through this proxy variable to be assured that the instance we are referring to is the correct and consistent one.
 
 e.g. 
 
 angular.module('notesApp', []) 
 	.controller('MainCtrl', [function() {
 		var self = this;
-		self.message= 'Hello '; self.changeMessage = function() {
+		self.message= 'Hello '; 
+		self.changeMessage = function() {
             self.message = 'Goodbye';
         };
 	}]);
+
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+$ prefix for Built-in AngularJS services
+
+$http
+$log
+$window
+$location
 
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
